@@ -9,69 +9,69 @@ data class TodoInitialData(val list: List<Todo>) {
         val default = listOf(
             Todo(
                 UUID.randomUUID(),
-                "11",
-                1728549289000,
-                Timestamp.valueOf("2024-10-15 15:20:51.898")
+                "Implement user login feature",
+                1728549289000L,
+                Timestamp.valueOf("2024-10-10 10:00:00")
             ),
             Todo(
                 UUID.randomUUID(),
-                "22",
-                1728462889000,
-                Timestamp.valueOf("2024-10-15 15:20:54.547")
+                "Fix bug in payment processing",
+                1728462889000L,
+                Timestamp.valueOf("2024-10-09 14:30:00")
             ),
             Todo(
                 UUID.randomUUID(),
-                "33",
-                1730363689000,
-                Timestamp.valueOf("2024-10-15 15:20:56.712")
+                "Write unit tests for new API",
+                1730363689000L,
+                Timestamp.valueOf("2024-10-11 09:00:00")
             ),
             Todo(
                 UUID.randomUUID(),
-                "44",
-                1729154089000,
-                Timestamp.valueOf("2024-10-15 15:20:58.723")
+                "Code review for pull request #22",
+                1729154089000L,
+                Timestamp.valueOf("2024-10-12 11:15:00")
             ),
             Todo(
                 UUID.randomUUID(),
-                "55",
+                "Refactor database schema",
                 null,
-                Timestamp.valueOf("2024-10-15 15:21:00.698")
+                Timestamp.valueOf("2024-10-13 16:45:00")
             ),
             Todo(
                 UUID.randomUUID(),
-                "66",
+                "Deploy application to staging",
                 null,
-                Timestamp.valueOf("2024-10-15 15:21:02.974")
+                Timestamp.valueOf("2024-10-13 17:30:00")
             ),
             Todo(
                 UUID.randomUUID(),
-                "77",
+                "Optimize performance for large datasets",
                 null,
-                Timestamp.valueOf("2024-10-15 15:21:07.21")
+                Timestamp.valueOf("2024-10-14 10:00:00")
             ),
             Todo(
                 UUID.randomUUID(),
-                "88",
-                1728950400000,
-                Timestamp.valueOf("2024-10-15 15:21:10.486")
+                "Update documentation for API v2",
+                1728950400000L,
+                Timestamp.valueOf("2024-10-14 09:30:00")
             ),
             Todo(
                 UUID.randomUUID(),
-                "ygfr",
-                1729382400000,
-                Timestamp.valueOf("2024-10-15 15:21:16.449")
+                "Design new landing page UI",
+                1729382400000L,
+                Timestamp.valueOf("2024-10-14 11:00:00")
             ),
             Todo(
                 UUID.randomUUID(),
-                "fdfg",
+                "Setup CI/CD pipeline",
                 null,
-                Timestamp.valueOf("2024-10-15 15:21:19.18")
+                Timestamp.valueOf("2024-10-15 12:00:00")
             ),
             Todo(
                 UUID.randomUUID(),
-                "ppp",
+                "Research new authentication methods",
                 null,
-                Timestamp.valueOf("2024-10-15 15:21:21.752")
+                Timestamp.valueOf("2024-10-15 14:00:00")
             )
         )
     }
