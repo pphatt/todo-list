@@ -13,7 +13,7 @@ fun AddTodoButton(navigateToDetails: () -> Unit) {
     FloatingActionButton(
         onClick = { navigateToDetails() },
         shape = RoundedCornerShape(50),
-        containerColor = LocalColorScheme.current.backgroundColor,
+        containerColor = LocalColorScheme.current.floatButtonBackgroundColor,
         contentColor = LocalColorScheme.current.addIconColor,
     ) {
         Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Todo")

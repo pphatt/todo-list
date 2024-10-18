@@ -63,6 +63,8 @@ val cursorColorLight = Color(0xFF83cae8)
 val activeActionColorLight = Color(0xFF272828)
 val disabledActionColorLight = Color(0xFFadb1b4)
 
+val floatButtonBackgroundColorLight = Color(0xFFffffff)
+
 val primaryDark = Color(0xFFC9C6C5)
 val onPrimaryDark = Color(0xFF313030)
 val primaryContainerDark = Color(0xFF000000)
@@ -125,3 +127,5 @@ val cursorColorDark = Color(0xFF4585a9)
 
 val activeActionColorDark = Color(0xFFdcdcdc)
 val disabledActionColorDark = Color(0xFF454545)
+
+val floatButtonBackgroundColorDark = Color(0xFF171c1f)

@@ -117,6 +117,8 @@ data class CustomColorScheme(
 
     val activeActionColor: Color,
     val disabledActionColor: Color,
+
+    val floatButtonBackgroundColor: Color
 )
 
 private val customColorSchemeLight = CustomColorScheme(
@@ -137,6 +139,7 @@ private val customColorSchemeLight = CustomColorScheme(
     cursorColor = cursorColorLight,
     activeActionColor = activeActionColorLight,
     disabledActionColor = disabledActionColorLight,
+    floatButtonBackgroundColor = floatButtonBackgroundColorLight,
 )
 
 private val customColorSchemeDark = CustomColorScheme(
@@ -157,6 +160,7 @@ private val customColorSchemeDark = CustomColorScheme(
     cursorColor = cursorColorDark,
     activeActionColor = activeActionColorDark,
     disabledActionColor = disabledActionColorDark,
+    floatButtonBackgroundColor = floatButtonBackgroundColorDark,
 )
 
 val LocalColorScheme = staticCompositionLocalOf {
@@ -178,6 +182,7 @@ val LocalColorScheme = staticCompositionLocalOf {
         cursorColor = Color.Unspecified,
         activeActionColor = Color.Unspecified,
         disabledActionColor = Color.Unspecified,
+        floatButtonBackgroundColor = Color.Unspecified
     )
 }
 
