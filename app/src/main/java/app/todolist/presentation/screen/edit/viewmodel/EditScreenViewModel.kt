@@ -3,6 +3,7 @@ package app.todolist.presentation.screen.edit.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.todolist.infrastructure.repositories.TodoRepositoryImpl
+import app.todolist.presentation.request.RestoreCompleteTodoDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,6 +35,8 @@ class EditScreenViewModel @Inject constructor(
             is ViewAction.DeleteTodo -> deleteTodo(action.todoId)
 
             is ViewAction.RestoreTodo -> restoreTodo(action.todoId)
+
+            is ViewAction.RestoreCompleteTodo -> restoreCompleteTodo(action.body)
         }
     }
 
@@ -62,6 +65,12 @@ class EditScreenViewModel @Inject constructor(
     private fun restoreTodo(todoId: String) {
         viewModelScope.launch {
             todoRepositoryImpl.restoreTodo(todoId)
+        }
+    }
+
+    private fun restoreCompleteTodo(body: RestoreCompleteTodoDto) {
+        viewModelScope.launch {
+            todoRepositoryImpl.restoreCompleteTodo(body)
         }
     }
 }

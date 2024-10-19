@@ -3,10 +3,13 @@ package app.todolist.infrastructure.repositories
 import app.todolist.domain.todo.data.TodoInitialData
 import app.todolist.domain.todo.entity.Todo
 import app.todolist.domain.todo.repository.TodoRepository
+import app.todolist.presentation.request.CompleteTodoDto
 import app.todolist.presentation.request.CreateTodoDto
 import app.todolist.presentation.request.EditTodoDto
+import app.todolist.presentation.request.RestoreCompleteTodoDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filter
 import java.sql.Timestamp
 import java.util.UUID
 import javax.inject.Inject
@@ -38,6 +41,21 @@ class TodoRepositoryImpl @Inject constructor() : TodoRepository {
         )
 
         todoList.value.add(newTodo)
+    }
+
+    override suspend fun completeTodo(body: CompleteTodoDto) {
+        val todoIndex = todoList.value.indexOfFirst { it.id == body.id }
+
+        if (todoIndex != -1) {
+            val todo = todoList.value[todoIndex]
+
+            val updatedTodo = todo.copy(status = true, completedAt = body.completedAt)
+
+            val updatedList = todoList.value.toMutableList()
+            updatedList[todoIndex] = updatedTodo
+
+            todoList.value = updatedList
+        }
     }
 
     override suspend fun editTodo(body: EditTodoDto) {
@@ -96,5 +114,20 @@ class TodoRepositoryImpl @Inject constructor() : TodoRepository {
         }
 
         todoList.value = updatedTodoList
+    }
+
+    override suspend fun restoreCompleteTodo(body: RestoreCompleteTodoDto) {
+        val todoIndex = todoList.value.indexOfFirst { it.id == body.id }
+
+        if (todoIndex != -1) {
+            val todo = todoList.value[todoIndex]
+
+            val updatedTodo = todo.copy(status = false, completedAt = null)
+
+            val updatedList = todoList.value.toMutableList()
+            updatedList[todoIndex] = updatedTodo
+
+            todoList.value = updatedList
+        }
     }
 }

@@ -1,5 +1,4 @@
-package app.todolist.ui.theme
-
+package app.reminder.presentation.core.theme
 import androidx.compose.ui.graphics.Color
 
 val primaryLight = Color(0xFF000000)
@@ -58,8 +57,6 @@ val cardBackgroundColorLight = Color(0xFFfcfcfc)
 val primaryCardForegroundColorLight = Color(0xFFaeaeae)
 val secondaryCardForegroundColorLight = Color(0xFFed842f)
 val lightSecondaryCardForegroundColorLight = Color(0xFFed842f)
-
-val thirdCardForegroundColorLight = Color(0xFFcfcfcf)
 
 val cursorColorLight = Color(0xFF83cae8)
 
@@ -126,12 +123,9 @@ val primaryCardForegroundColorDark = Color(0xFF666666)
 val secondaryCardForegroundColorDark = Color(0xFF9c6d52)
 val lightSecondaryCardForegroundColorDark = Color(0xFFdd9a5b)
 
-val thirdCardForegroundColorDark = Color(0xFF484848)
-
 val cursorColorDark = Color(0xFF4585a9)
 
 val activeActionColorDark = Color(0xFFdcdcdc)
 val disabledActionColorDark = Color(0xFF454545)
 
 val floatButtonBackgroundColorDark = Color(0xFF171c1f)
-

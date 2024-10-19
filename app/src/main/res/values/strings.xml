@@ -4,6 +4,9 @@
     <!-- Reminder Screen -->
     <string name="todo_title">All</string>
 
+    <!-- Completed Screen -->
+    <string name="complete_title">Complete</string>
+
     <!-- Trash Screen -->
     <string name="trash_title">Trash</string>
 </resources>

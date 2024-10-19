@@ -30,6 +30,7 @@ fun ShareScreen(
                 currentRoute = currentRoute,
                 navigateToTodo = navigationActions.navigateToTodo,
                 navigateToTrash = navigationActions.navigateToTrash,
+                navigateToComplete = navigationActions.navigateToComplete,
                 closeDrawer = { closeDrawer() }
             )
         },

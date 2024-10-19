@@ -10,7 +10,7 @@ object Tabs {
     const val TODO_ROUTE = "Todo"
     const val TRASH_ROUTE = "Trash"
     const val DETAILS_ROUTE = "Details"
-    const val EDIT_ROUTE = "Edit"
+    const val COMPLETE_ROUTE = "Completed"
 }
 
 /**
@@ -27,18 +27,8 @@ class NavigationActions(navHostController: NavHostController) {
             restoreState = true
         }
     }
-    val navigateToTrash: () -> Unit = {
-        navHostController.navigate(Tabs.TRASH_ROUTE) {
-            popUpTo(navHostController.graph.findStartDestination().id) {
-                saveState = true
-            }
-
-            launchSingleTop = true
-            restoreState = true
-        }
-    }
-    val navigateToEditTrash: (todoId: String) -> Unit = {
-        navHostController.navigate("${Tabs.TRASH_ROUTE}/${it}") {
+    val navigateToEditTodo: (todoId: String) -> Unit = {
+        navHostController.navigate("${Tabs.TODO_ROUTE}/${it}") {
             popUpTo(navHostController.graph.findStartDestination().id) {
                 saveState = true
             }
@@ -64,8 +54,37 @@ class NavigationActions(navHostController: NavHostController) {
             launchSingleTop = true
         }
     }
-    val navigateToEdit: (todoId: String) -> Unit = {
-        navHostController.navigate("${Tabs.EDIT_ROUTE}/${it}") {
+    val navigateToTrash: () -> Unit = {
+        navHostController.navigate(Tabs.TRASH_ROUTE) {
+            popUpTo(navHostController.graph.findStartDestination().id) {
+                saveState = true
+            }
+
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
+    val navigateToEditTrash: (todoId: String) -> Unit = {
+        navHostController.navigate("${Tabs.TRASH_ROUTE}/${it}") {
+            popUpTo(navHostController.graph.findStartDestination().id) {
+                saveState = true
+            }
+
+            launchSingleTop = true
+        }
+    }
+    val navigateToComplete: () -> Unit = {
+        navHostController.navigate(Tabs.COMPLETE_ROUTE) {
+            popUpTo(navHostController.graph.findStartDestination().id) {
+                saveState = true
+            }
+
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
+    val navigateToEditComplete: (todoId: String) -> Unit = {
+        navHostController.navigate("${Tabs.COMPLETE_ROUTE}/${it}") {
             popUpTo(navHostController.graph.findStartDestination().id) {
                 saveState = true
             }

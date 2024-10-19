@@ -1,9 +1,10 @@
-package app.todolist.presentation.screen.todo.viewmodel
+package app.todolist.presentation.screen.complete.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.todolist.domain.todo.entity.Todo
 import app.todolist.infrastructure.repositories.TodoRepositoryImpl
-import app.todolist.presentation.request.CompleteTodoDto
+import app.todolist.presentation.request.RestoreCompleteTodoDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TodoScreenViewModel @Inject constructor(
+class CompleteScreenViewModel @Inject constructor(
     private val todoRepositoryImpl: TodoRepositoryImpl
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UIState.default)
@@ -25,21 +26,25 @@ class TodoScreenViewModel @Inject constructor(
 
     fun execute(action: ViewAction) {
         when (action) {
-            is ViewAction.CompleteTodo -> onCompleteTodo(action.body)
+            is ViewAction.RestoreCompleteTodo -> onRestoreCompleteTodo(action.body)
         }
     }
 
     init {
         viewModelScope.launch {
             todoRepositoryImpl.getAllTodo().collect { todoList ->
-                state = state.copy(list = todoList)
+                initializeTodo(todoList.filter { todo -> todo.completedAt != null && todo.deletedAt == null })
             }
         }
     }
 
-    private fun onCompleteTodo(body: CompleteTodoDto) {
+    private fun initializeTodo(todo: List<Todo>) {
+        state = state.copy(list = todo)
+    }
+
+    private fun onRestoreCompleteTodo(body: RestoreCompleteTodoDto) {
         viewModelScope.launch {
-            todoRepositoryImpl.completeTodo(body)
+            todoRepositoryImpl.restoreCompleteTodo(body)
         }
     }
 }

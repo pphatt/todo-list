@@ -1,4 +1,4 @@
-package app.todolist.presentation.screen.todo.components
+package app.todolist.presentation.screen.complete.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,15 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import app.todolist.domain.todo.entity.Todo
-import app.todolist.presentation.request.CompleteTodoDto
+import app.todolist.presentation.request.RestoreCompleteTodoDto
 
 @Composable
-fun TodoList(
-    title: String,
+fun CompleteList(
+    date: String,
     todos: List<Todo>,
-    temporalTodos: List<Todo>?,
-    onTodoClick: (Todo) -> Unit,
-    onCompleteTodo: (body: CompleteTodoDto) -> Unit,
+    onTodoClick: (String) -> Unit,
+    onRestoreCompleteTodo: (body: RestoreCompleteTodoDto) -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(5.dp)
@@ -27,7 +26,7 @@ fun TodoList(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 25.dp),
-            text = title,
+            text = date,
             color = Color(0xFF9a9ea1)
         )
 
@@ -35,11 +34,10 @@ fun TodoList(
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             todos.forEach { todo ->
-                TodoCard(
+                CompleteCard(
                     todo = todo,
-                    isNew = temporalTodos?.find { r -> r.id == todo.id } != null,
                     onTodoClick = onTodoClick,
-                    onCompleteTodo = onCompleteTodo
+                    onRestoreCompleteTodo = onRestoreCompleteTodo
                 )
             }
         }

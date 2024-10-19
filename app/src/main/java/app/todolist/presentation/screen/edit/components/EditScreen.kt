@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import app.todolist.presentation.request.RestoreCompleteTodoDto
 import app.todolist.presentation.screen.edit.viewmodel.EditScreenViewModel
 import app.todolist.presentation.screen.edit.viewmodel.ViewAction
 import app.todolist.ui.theme.LocalColorScheme
@@ -32,8 +33,10 @@ fun EditScreen(
     viewModel: EditScreenViewModel = hiltViewModel(),
     todoId: String?,
     isCurrentTrashRoute: Boolean = false,
+    isCurrentCompleteRoute: Boolean = false,
     navigateToTodo: () -> Unit,
     navigateToTrash: () -> Unit,
+    navigateToComplete: () -> Unit,
     navigateToEditDetails: (todoId: String?) -> Unit
 ) {
     val state = viewModel.uiState.collectAsState().value
@@ -58,7 +61,7 @@ fun EditScreen(
             containerColor = LocalColorScheme.current.primaryBackgroundColor,
             bottomBar = {
                 if (isCurrentTrashRoute) {
-                    TrashEditAppBottomBar(
+                    AppBottomBarResume(
                         onRestoreTodo = {
                             viewModel.execute(ViewAction.RestoreTodo(todoId!!))
 
@@ -80,6 +83,41 @@ fun EditScreen(
                             ).show()
 
                             navigateToTrash()
+                        }
+                    )
+
+                    return@Scaffold
+                }
+
+                if (isCurrentCompleteRoute) {
+                    AppBottomBarResume(
+                        onRestoreTodo = {
+                            viewModel.execute(
+                                ViewAction.RestoreCompleteTodo(
+                                    RestoreCompleteTodoDto(
+                                        UUID.fromString(todoId)
+                                    )
+                                )
+                            )
+
+                            Toast.makeText(
+                                context,
+                                "Restore todo successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            navigateToComplete()
+                        },
+                        onDeleteTodo = {
+                            viewModel.execute(ViewAction.MoveTodoToTrash)
+
+                            Toast.makeText(
+                                context,
+                                "Delete task successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            navigateToComplete()
                         }
                     )
 
@@ -113,6 +151,7 @@ fun EditScreen(
                 TodoTextPlaceholder(
                     content = state.todo?.content ?: "",
                     isCurrentTrashRoute = isCurrentTrashRoute,
+                    isCurrentCompleteRoute = isCurrentCompleteRoute,
                     onNavigateToEditTodo = { navigateToEditDetails(todoId) },
                     onNavigateBack = {
                         if (isCurrentTrashRoute) navigateToTrash() else navigateToTodo()

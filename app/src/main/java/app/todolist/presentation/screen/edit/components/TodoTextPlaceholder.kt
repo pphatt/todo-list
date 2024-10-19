@@ -31,6 +31,7 @@ import app.todolist.ui.theme.LocalColorScheme
 fun TodoTextPlaceholder(
     content: String,
     isCurrentTrashRoute: Boolean = false,
+    isCurrentCompleteRoute: Boolean = false,
     onNavigateToEditTodo: () -> Unit,
     onNavigateBack: () -> Unit
 ) {
@@ -44,7 +45,7 @@ fun TodoTextPlaceholder(
             .clickable(
                 interactionSource = null,
                 indication = null,
-                onClick = { if (!isCurrentTrashRoute) onNavigateToEditTodo() }
+                onClick = { if (!isCurrentTrashRoute && !isCurrentCompleteRoute) onNavigateToEditTodo() }
             ),
         verticalArrangement = Arrangement.Center,
     ) {
@@ -71,7 +72,7 @@ fun TodoTextPlaceholder(
                 .clickable(
                     interactionSource = null,
                     indication = null,
-                    onClick = { if (!isCurrentTrashRoute) onNavigateToEditTodo() }
+                    onClick = { if (!isCurrentTrashRoute && !isCurrentCompleteRoute) onNavigateToEditTodo() }
                 ),
             textStyle = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.W700),
             placeholder = {

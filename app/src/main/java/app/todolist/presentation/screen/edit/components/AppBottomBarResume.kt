@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TrashEditAppBottomBar(
+fun AppBottomBarResume(
     modifier: Modifier = Modifier,
     onRestoreTodo: () -> Unit,
     onDeleteTodo: () -> Unit
