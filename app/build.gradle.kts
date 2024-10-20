@@ -103,6 +103,8 @@ dependencies {
 
     implementation(libs.androidx.compose.material.window)
 
+    implementation(kotlinx.bundles.coroutines)
+
     // UI library
     implementation(libs.material)
 

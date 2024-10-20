@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CheckBox
+import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.CollectionsBookmark
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.LibraryAddCheck
+import androidx.compose.material.icons.rounded.LibraryBooks
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -19,6 +21,7 @@ import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
@@ -35,7 +38,11 @@ fun AppDrawer(
     navigateToTodo: () -> Unit,
     navigateToComplete: () -> Unit,
     navigateToTrash: () -> Unit,
-    closeDrawer: () -> Unit
+    closeDrawer: () -> Unit,
+
+    unfinishedTodoCount: Int,
+    finishedTodoCount: Int,
+    deleteTodoCount: Int,
 ) {
     ModalDrawerSheet(
         modifier.statusBarsPadding(),
@@ -82,6 +89,12 @@ fun AppDrawer(
                     fontWeight = if (currentRoute == Tabs.TODO_ROUTE) FontWeight.Bold else FontWeight.Normal
                 )
             },
+            badge = {
+                Text(
+                    text = unfinishedTodoCount.toString(),
+                    fontWeight = if (currentRoute == Tabs.TODO_ROUTE) FontWeight.Bold else FontWeight.Normal
+                )
+            },
             icon = { Icon(Icons.Rounded.CollectionsBookmark, null) },
             selected = currentRoute == Tabs.TODO_ROUTE,
             onClick = { navigateToTodo(); closeDrawer() },
@@ -114,6 +127,12 @@ fun AppDrawer(
                     Icons.Rounded.CheckBox, null
                 )
             },
+            badge = {
+                Text(
+                    text = finishedTodoCount.toString(),
+                    fontWeight = if (currentRoute == Tabs.TODO_ROUTE) FontWeight.Bold else FontWeight.Normal
+                )
+            },
             selected = currentRoute == Tabs.COMPLETE_ROUTE,
             onClick = { navigateToComplete(); closeDrawer() },
             shape = RoundedCornerShape(15),
@@ -138,6 +157,12 @@ fun AppDrawer(
                 Text(
                     stringResource(id = R.string.trash_title),
                     fontWeight = if (currentRoute == Tabs.TRASH_ROUTE) FontWeight.Bold else FontWeight.Normal
+                )
+            },
+            badge = {
+                Text(
+                    text = deleteTodoCount.toString(),
+                    fontWeight = if (currentRoute == Tabs.TODO_ROUTE) FontWeight.Bold else FontWeight.Normal
                 )
             },
             icon = { Icon(Icons.Rounded.Delete, null) },

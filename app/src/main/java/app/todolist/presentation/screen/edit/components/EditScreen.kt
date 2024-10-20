@@ -109,7 +109,7 @@ fun EditScreen(
                             navigateToComplete()
                         },
                         onDeleteTodo = {
-                            viewModel.execute(ViewAction.MoveTodoToTrash)
+                            viewModel.execute(ViewAction.SoftDeleteTodo)
 
                             Toast.makeText(
                                 context,
@@ -127,7 +127,7 @@ fun EditScreen(
                 AppBottomBar(
                     onNavigateToEditTodo = { navigateToEditDetails(todoId) },
                     onDeleteTodo = {
-                        viewModel.execute(ViewAction.MoveTodoToTrash)
+                        viewModel.execute(ViewAction.SoftDeleteTodo)
 
                         Toast.makeText(
                             context,

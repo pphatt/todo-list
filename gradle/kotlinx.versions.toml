@@ -7,5 +7,11 @@ compose-compiler-gradle = { module = "org.jetbrains.kotlin:compose-compiler-grad
 
 immutables = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.7" }
 
+coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
+coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
+
 [plugins]
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+[bundles]
+coroutines = ["coroutines-core", "coroutines-android"]

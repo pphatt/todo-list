@@ -102,12 +102,7 @@ fun TodoScreen(
                     )
                 }
 
-                val currentTimeMillis = System.currentTimeMillis()
-                val currentCalendar = Calendar.getInstance()
-
-                val nonDeletedList = state.list.filter { todo -> todo.deletedAt == null && todo.completedAt == null }
-
-                if (nonDeletedList.isEmpty()) {
+                if (state.list.isEmpty()) {
                     EmptyContentScreen(
                         title = "Tasks you add appear here",
                         painter = painterResource(id = R.drawable.anim_notes)
@@ -116,21 +111,24 @@ fun TodoScreen(
                     return@Scaffold
                 }
 
-                val todoListFilteredByPastDate = nonDeletedList.filter { todo ->
+                val currentTimeMillis = System.currentTimeMillis()
+                val currentCalendar = Calendar.getInstance()
+
+                val todoListFilteredByPastDate = state.list.filter { todo ->
                     todo.dueDate != null && todo.dueDate < currentTimeMillis && isSameDay(
                         todo.dueDate,
                         currentCalendar.timeInMillis
                     ).not()
                 }
 
-                val todoListFilteredByCurrentDate = nonDeletedList.filter { todo ->
+                val todoListFilteredByCurrentDate = state.list.filter { todo ->
                     todo.dueDate != null && isSameDay(
                         todo.dueDate,
                         currentCalendar.timeInMillis
                     )
                 }
 
-                val todoListFilteredByFutureDate = nonDeletedList.filter { todo ->
+                val todoListFilteredByFutureDate = state.list.filter { todo ->
                     todo.dueDate != null && todo.dueDate > currentTimeMillis && isSameDay(
                         todo.dueDate,
                         currentCalendar.timeInMillis
@@ -138,7 +136,7 @@ fun TodoScreen(
                 }
 
                 val todoListFilteredByNoDate =
-                    nonDeletedList.filter { todo -> todo.dueDate == null }
+                    state.list.filter { todo -> todo.dueDate == null }
 
                 LazyColumn(
                     modifier = Modifier

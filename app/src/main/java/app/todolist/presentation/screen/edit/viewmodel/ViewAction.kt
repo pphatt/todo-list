@@ -6,7 +6,7 @@ import java.util.UUID
 sealed interface ViewAction {
     data class SetTodo(val id: UUID) : ViewAction
 
-    data object MoveTodoToTrash : ViewAction
+    data object SoftDeleteTodo : ViewAction
 
     data class DeleteTodo(val todoId: String) : ViewAction
 

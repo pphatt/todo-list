@@ -30,7 +30,7 @@ class EditScreenViewModel @Inject constructor(
                 id = action.id
             )
 
-            is ViewAction.MoveTodoToTrash -> moveTodoToTrash()
+            is ViewAction.SoftDeleteTodo -> softDeleteTodo()
 
             is ViewAction.DeleteTodo -> deleteTodo(action.todoId)
 
@@ -50,9 +50,9 @@ class EditScreenViewModel @Inject constructor(
         }
     }
 
-    private fun moveTodoToTrash() {
+    private fun softDeleteTodo() {
         viewModelScope.launch {
-            state.todo?.let { todoRepositoryImpl.moveTodoToTrash(it) }
+            state.todo?.let { todoRepositoryImpl.softDeleteTodo(it) }
         }
     }
 

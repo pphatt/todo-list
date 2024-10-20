@@ -7,7 +7,10 @@ import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import app.todolist.presentation.screen.share.viewmodel.ShareScreenViewModel
 import app.todolist.ui.component.AppDrawer
 import app.todolist.ui.navigation.NavigationActions
 import app.todolist.ui.theme.LocalColorScheme
@@ -16,6 +19,8 @@ import kotlinx.coroutines.Job
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ShareScreen(
+    viewModel: ShareScreenViewModel = hiltViewModel(),
+
     navigationActions: NavigationActions,
     drawerState: DrawerState,
     currentRoute: String,
@@ -23,6 +28,8 @@ fun ShareScreen(
 
     content: @Composable () -> Unit
 ) {
+    val state = viewModel.uiState.collectAsState().value
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -31,7 +38,11 @@ fun ShareScreen(
                 navigateToTodo = navigationActions.navigateToTodo,
                 navigateToTrash = navigationActions.navigateToTrash,
                 navigateToComplete = navigationActions.navigateToComplete,
-                closeDrawer = { closeDrawer() }
+                closeDrawer = { closeDrawer() },
+
+                unfinishedTodoCount = state.unfinishedTodoCount,
+                finishedTodoCount = state.finishedTodoCount,
+                deleteTodoCount = state.deleteTodoCount,
             )
         },
     ) {

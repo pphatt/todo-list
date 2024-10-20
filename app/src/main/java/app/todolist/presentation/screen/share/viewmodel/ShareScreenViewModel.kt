@@ -1,8 +1,7 @@
-package app.todolist.presentation.screen.trash.viewmodel
+package app.todolist.presentation.screen.share.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.todolist.domain.todo.entity.Todo
 import app.todolist.infrastructure.repositories.TodoRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TrashScreenViewModel @Inject constructor(
+class ShareScreenViewModel @Inject constructor(
     private val todoRepositoryImpl: TodoRepositoryImpl
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UIState.default)
@@ -25,13 +24,23 @@ class TrashScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            todoRepositoryImpl.getAllDeletedTodo().collect { todoList ->
-                initializeTodo(todoList)
+            launch {
+                todoRepositoryImpl.getCountAllUnfinishedTodo().collect { unfinishedCount ->
+                    state = state.copy(unfinishedTodoCount = unfinishedCount)
+                }
+            }
+
+            launch {
+                todoRepositoryImpl.getCountAllFinishedTodo().collect { finishedCount ->
+                    state = state.copy(finishedTodoCount = finishedCount)
+                }
+            }
+
+            launch {
+                todoRepositoryImpl.getCountAllDeletedTodo().collect { deletedCount ->
+                    state = state.copy(deleteTodoCount = deletedCount)
+                }
             }
         }
-    }
-
-    private fun initializeTodo(todo: List<Todo>) {
-        state = state.copy(list = todo)
     }
 }

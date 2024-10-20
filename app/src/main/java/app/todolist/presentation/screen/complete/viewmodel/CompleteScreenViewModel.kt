@@ -32,8 +32,8 @@ class CompleteScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            todoRepositoryImpl.getAllTodo().collect { todoList ->
-                initializeTodo(todoList.filter { todo -> todo.completedAt != null && todo.deletedAt == null })
+            todoRepositoryImpl.getAllFinishedTodo().collect { todoList ->
+                initializeTodo(todoList)
             }
         }
     }

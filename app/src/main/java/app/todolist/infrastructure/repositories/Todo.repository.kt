@@ -9,7 +9,7 @@ import app.todolist.presentation.request.EditTodoDto
 import app.todolist.presentation.request.RestoreCompleteTodoDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import java.sql.Timestamp
 import java.util.UUID
 import javax.inject.Inject
@@ -25,6 +25,42 @@ class TodoRepositoryImpl @Inject constructor() : TodoRepository {
 
     override suspend fun getAllTodo(): Flow<List<Todo>> {
         return todoList
+    }
+
+    override suspend fun getAllUnfinishedTodo(): Flow<List<Todo>> {
+        return todoList.map { list ->
+            list.filter { !it.status && it.deletedAt == null }
+        }
+    }
+
+    override suspend fun getCountAllUnfinishedTodo(): Flow<Int> {
+        return todoList.map { list ->
+            list.count { !it.status && it.deletedAt == null }
+        }
+    }
+
+    override suspend fun getAllFinishedTodo(): Flow<List<Todo>> {
+        return todoList.map { list ->
+            list.filter { it.status && it.deletedAt == null }
+        }
+    }
+
+    override suspend fun getCountAllFinishedTodo(): Flow<Int> {
+        return todoList.map { list ->
+            list.count { it.status && it.deletedAt == null }
+        }
+    }
+
+    override suspend fun getAllDeletedTodo(): Flow<List<Todo>> {
+        return todoList.map { list ->
+            list.filter { it.deletedAt != null }
+        }
+    }
+
+    override suspend fun getCountAllDeletedTodo(): Flow<Int> {
+        return todoList.map { list ->
+            list.count { it.deletedAt != null }
+        }
     }
 
     override suspend fun getTodoById(id: UUID): Todo? {
@@ -76,7 +112,7 @@ class TodoRepositoryImpl @Inject constructor() : TodoRepository {
         }
     }
 
-    override suspend fun moveTodoToTrash(todo: Todo) {
+    override suspend fun softDeleteTodo(todo: Todo) {
         val updatedTodoList = todoList.value.toMutableList().apply {
             val index = indexOfFirst { it.id == todo.id }
 

@@ -31,7 +31,7 @@ class TodoScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            todoRepositoryImpl.getAllTodo().collect { todoList ->
+            todoRepositoryImpl.getAllUnfinishedTodo().collect { todoList ->
                 state = state.copy(list = todoList)
             }
         }
