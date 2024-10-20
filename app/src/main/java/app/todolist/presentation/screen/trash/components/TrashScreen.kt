@@ -27,11 +27,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import app.todolist.R
 import app.todolist.presentation.screen.trash.viewmodel.TrashScreenViewModel
+import app.todolist.ui.component.EmptyContentScreen
 import app.todolist.ui.theme.LocalColorScheme
 import app.todolist.utils.convertMillisToDate
 import kotlinx.coroutines.Job
@@ -93,6 +96,15 @@ fun TrashScreen(
                     ),
                     text = "Todo are automatically moved to trash when deleted. Deleting a todo from trash will permanently remove it."
                 )
+
+                if (state.list.isEmpty()) {
+                    EmptyContentScreen(
+                        title = "Tasks you delete appear here",
+                        painter = painterResource(id = R.drawable.anim_delete_folders)
+                    )
+
+                    return@Scaffold
+                }
 
                 val groupedTodoList = state.list
                     .filter { it.deletedAt != null }

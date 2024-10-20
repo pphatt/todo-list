@@ -27,12 +27,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import app.todolist.R
 import app.todolist.presentation.screen.complete.viewmodel.CompleteScreenViewModel
 import app.todolist.presentation.screen.complete.viewmodel.ViewAction
+import app.todolist.ui.component.EmptyContentScreen
 import app.todolist.ui.theme.LocalColorScheme
 import app.todolist.utils.convertMillisToDate
 import kotlinx.coroutines.Job
@@ -94,6 +97,15 @@ fun CompletedScreen(
                     ),
                     text = "Completed todo will be displayed here."
                 )
+
+                if (state.list.isEmpty()) {
+                    EmptyContentScreen(
+                        title = "Tasks you complete appear here",
+                        painter = painterResource(id = R.drawable.anim_checklist)
+                    )
+
+                    return@Scaffold
+                }
 
                 val groupedTodoList = state.list
                     .sortedBy { it.completedAt }

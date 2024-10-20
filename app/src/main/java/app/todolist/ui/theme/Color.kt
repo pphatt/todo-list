@@ -134,4 +134,3 @@ val activeActionColorDark = Color(0xFFdcdcdc)
 val disabledActionColorDark = Color(0xFF454545)
 
 val floatButtonBackgroundColorDark = Color(0xFF171c1f)
-
